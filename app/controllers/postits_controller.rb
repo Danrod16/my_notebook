@@ -4,7 +4,8 @@ class PostitsController < ApplicationController
   end
 
   def create
-    @postit = Postit.new(postit_params)
+    @color = ["#86A1DA", "#88D6BA", "#F23595", "#283139", "#FEE269"]
+    @postit = Postit.new(description: params[:description], color: @color.sample)
     if @postit.save
       redirect_to postits_path
       flash[:alert] = "Postit created Modafucka!"
@@ -31,6 +32,6 @@ class PostitsController < ApplicationController
   private
 
   def postit_params
-    params.require(:postit).permit(:description)
+    params.require(:postit).permit(:description, color: @color.sample)
   end
 end
